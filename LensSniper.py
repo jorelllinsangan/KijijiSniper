@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup as bs
+from ProductAd import ProductAd
 import requests, sched, time, webbrowser, random
 
 
@@ -34,7 +35,7 @@ def snipeThatLens(count):
 
 snipeThatLens(1)
 
-s.run()
+# s.run()
 
 
 
