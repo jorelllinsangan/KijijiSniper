@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from Base import Base
+from misc.Base import Base
 class Client(Base):
 
 	__tablename__ = 'clients'

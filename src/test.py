@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
-from Client import Client
-from Base import Base
+from models.Client import Client
+from misc.Base import Base
 from sqlalchemy.orm import sessionmaker
 
 
@@ -19,6 +19,4 @@ session.add_all([cli, cli2])
 
 clients = session.query(Client)
 
-
-print list(clients)
 
