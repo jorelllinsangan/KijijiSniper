@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from misc.Base import Base
+from database.Base import Base
 class Client(Base):
 
 	__tablename__ = 'clients'
@@ -9,10 +8,7 @@ class Client(Base):
 	twitter_handle = Column(String)
 	autoincrement = 1
 	sqlite_autoincrement = True
+	
 	def __repr__(self):
-		return "<Client(id = %d, twitter_handle = '%s')>" % (self.id,self.twitter_handle)
+		return "<Client(twitter_handle = '%s')>" % (self.twitter_handle)
 
-	def get_base(self):
-		return Base.get_base()
-		
-print Client.__table__
