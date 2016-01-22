@@ -1,14 +1,26 @@
-from database import Session
+from database.Base import Base
 from models.Client import Client
 from models.Product import Product
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-session = Session()
-
-cli = Client(twitter_handle = "jjorell")
-cli2 = Client(twitter_handle = "test")
-
-session.add_all([cli, cli2])
+engine = None
+Session = None
 
 
-print list(session.query(Client))
+def main():
+	initialize_database()
+	session = Session()
+	cli = Client(twitter_handle = "jjorell")
+	session.add(cli)
+
+def initialize_database():
+	global engine
+	engine = create_engine('sqlite:///:memory:', echo=True)
+	global Session
+	Session = sessionmaker(bind=engine)
+	Base.metadata.create_all(engine)	
+
+
+main()
 
