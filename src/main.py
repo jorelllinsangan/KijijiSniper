@@ -10,32 +10,24 @@ engine = None
 Session = None
 twitter_api = None
 
-token = {
-	'consumer': 'WaRuTvxIkNngrckv3qDkzq672',
-	'access': '192557797-8DaByIFaOgWcyJC1yqTcXgGmzq8iiYiP8ZFxiLgO'
-}
-
-secret = {
-	'consumer': 'isKk8nxD7LLS1sRrVSWhzwanCrJOray25yrWUarr2z7oTIvj6H',
-	'access': 'Uf1DCJgNbedA6HlnO3eO3IOaPYWFJOh7ltBRLRJyJIydB'
-}
 
 def main():
 	initialize_database()
-	session = Session()
+	
 	authenticate_bot()
 
-	listener = StreamListener()
+	
+
+	listener = StreamListener(Session, twitter_api)
 	myStream = tweepy.Stream(auth =twitter_api.auth, listener=listener)
 
-	myStream.filter(track=['snow', 'hate'])
-
+	myStream.filter(track=['@TwijijiBot'])
 
 def initialize_database():
 	global engine
 	global Session
 
-	engine = create_engine('sqlite:///:memory:', echo=True)
+	engine = create_engine('sqlite:///database/twijiji_data.db', echo=True)
 	Session = sessionmaker(bind=engine)
 
 	Base.metadata.create_all(engine)	
@@ -43,17 +35,25 @@ def initialize_database():
 def authenticate_bot():
 	global twitter_api
 
-	auth = tweepy.OAuthHandler(token['consumer'], secret['consumer'])
-	auth.set_access_token(token['access'], secret['access'])
+	file_name = 'keys.txt'
+	secrets = read_keys(file_name)
+	print secrets
+	auth = tweepy.OAuthHandler(secrets['consumer_key'], secrets['consumer_secret'])
+	auth.set_access_token(secrets['access_token'], secrets['access_secret'])
 
 	twitter_api = tweepy.API(auth)
 
+def read_keys(file_name):
+	secrets = {}
 
+	with open(file_name, 'rb') as f:
+		lines = f.readlines()
+		
+	for line in lines:
+		line = line.rstrip().split(":")
+		secrets[line[0]] = line[1]
 
-
-
-
-
+	return secrets
 
 main()
 

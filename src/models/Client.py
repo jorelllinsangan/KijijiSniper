@@ -6,6 +6,10 @@ class Client(Base):
 
 	id = Column(Integer, primary_key=True)
 	twitter_handle = Column(String)
+	location = Column(String)
+	name = Column(String)
+	followers_count = Column(Integer)
+	twitter_id = Column(String)
 	autoincrement = 1
 	sqlite_autoincrement = True
 	
