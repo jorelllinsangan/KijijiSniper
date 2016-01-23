@@ -8,6 +8,7 @@ engine = None
 Session = None
 
 
+
 def main():
 	initialize_database()
 	session = Session()
