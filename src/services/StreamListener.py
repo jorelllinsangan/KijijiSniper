@@ -27,12 +27,11 @@ class StreamListener(tweepy.StreamListener):
 		else:
 			self.error_response(tweet.user.screen_name)
 
-
+		client = self.get_client(tweet.user.screen_name)
 		if new_client:
-			client = self.get_client(tweet.user.screen_name)
 			watcher = KijijiWatcher(client) 
-		else:
-
+			
+		watcher = client.get_watcher()
 
 
 

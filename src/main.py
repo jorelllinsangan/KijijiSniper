@@ -4,6 +4,7 @@ from models.Product import Product
 from services.StreamListener import StreamListener
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from models.KijijiWatcher import KijijiWatcher
 import tweepy
 
 engine = None
@@ -30,7 +31,15 @@ def initialize_database():
 	engine = create_engine('sqlite:///database/twijiji_data.db', echo=True)
 	Session = sessionmaker(bind=engine)
 
-	Base.metadata.create_all(engine)	
+	session = Session()
+	client = session.query(Client).filter_by(twitter_handle = 'jjorell').one()
+	# print client
+	# x = KijijiWatcher(client=client)
+	# session.add(x)
+	# session.commit()
+	# Base.metadata.drop_all(engine)
+	# Base.metadata.create_all(engine)
+
 
 def authenticate_bot():
 	global twitter_api
