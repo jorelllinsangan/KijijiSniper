@@ -16,6 +16,8 @@ class KijijiWatcher(Base):
 	id = Column(Integer, primary_key = True)
 	client_id = Column(Integer, ForeignKey('clients.id'))
 	client = relationship("Client", back_populates="kijiji_watcher")
+	product_id = Column(Integer, ForeignKey('products.id'))
+	product = relationship("Product")
 
 	
 	# def form_url(self, product, price = '', location = 'winnipeg'):
